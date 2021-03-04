@@ -76,7 +76,7 @@ const enterCheck = () => {
 //tworzenie przycisków edycji zadań
 const createToolsArea = () => {
     let toolsPanel;
-    let completeBtn;
+    let checkLabel;
     let editBtn;
     let deleteBtn;
 
@@ -87,6 +87,11 @@ const createToolsArea = () => {
     $completeBtn = document.createElement('input');
     $completeBtn.classList.add('complete');
     $completeBtn.setAttribute("type", "checkbox");
+    
+    checkLabel = document.createElement('label');
+    checkLabel.classList.add('checkbox');
+
+    
    
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
@@ -96,7 +101,8 @@ const createToolsArea = () => {
     deleteBtn.classList.add('delete');
     deleteBtn.innerHTML = '<i class="fa fa-times"></i>'
 
-    toolsPanel.appendChild($completeBtn);
+    checkLabel.appendChild($completeBtn);
+    toolsPanel.appendChild(checkLabel);
     toolsPanel.appendChild(editBtn);
     toolsPanel.appendChild(deleteBtn);
 
