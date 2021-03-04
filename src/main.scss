@@ -5,18 +5,136 @@ $check-background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
 $light-gray: hsl(0, 0%, 98%);
 $light-grayish-blue:hsl(236, 33%, 92%);
 $grayish-blue:hsl(233, 11%, 84%);
-$dark-grayish-blue:hsl(236, 9%, 61%);
-$very-dark-grayish-blue:hsl(235, 19%, 35%);
-body, header{
+$dark-grayish-blue:#313245;
+$very-dark-grayish-blue:#242129;
+*{
+    font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
+    color: white;
+    
+    
+}
+button{
+    border: none;
+    background: none;
+}
+body, .header, .todo, li{
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
+   
 
 }
+.todo, .header{
+    width: 1440px;
+}
+.contentWrapper{
+    width: 500px;
+    height: 100%;
+    margin-top: 200px;
+    .title{
+        display: flex;
+        justify-content: space-between;
+    }
+    h1{
+        letter-spacing: 10px;
+        margin-bottom: 20px;
+    }
+    .darkMode, .lightMode{
+        background: none;
+        border: none;
+    }
+    .todoInput{
+        height: 50px;
+        border-radius: 3px;
+        width: 100%;
+        padding-left: 30px;
+    }
+    .inputArea{
+        margin: 0, 0, 10px,0;
+    }
+}
+.foo, .todo, .header{
+    flex-direction: column;
+}
+
 .foo{
-    background: $very-dark-grayish-blue;
+    background:$very-dark-grayish-blue;
     flex-direction: column;
     align-self: flex-end;
    
+}
+.header{
+    height: 300px;
+    background: url('./assets/bg-desktop-dark.jpg') no-repeat center;
+}
+input, .todoInput, .todoList{
+    background: $dark-grayish-blue;
+    border:none;
+    box-shadow: none;
+}
+.todoList{
+    border-radius: 3px;
+    min-height: 300px;
+    ul{
+        padding: 10px;
+        list-style-type:none;
+    }
+    li{
+        margin: 0 auto;
+        height: 50px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        justify-content: flex-start;
+    }
+
+}
+footer{
+    padding-top: 3px; 
+    position: absolute;
+    height: 20px;
+    margin-bottom: 0;
+    bottom: 0;
+    width: 100%;
+}
+.alertInfo{
+    font-size: 13px;
+    color: $grayish-blue;
+}
+.lightMode{
+    display: none;
+}
+
+
+
+.complete {
+    color: blue;
+}
+
+.edit {
+    font-weight: bold;
+    color: rgb(15, 179, 69);
+}
+
+.delete {
+    color: tomato;
+}
+
+.completed {
+    text-decoration:line-through; 
+    color: GREY;
+}
+.popup {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    color: var(--light);
+    background-color: var(--light-dark);
+    border-radius: 5px;
 }

@@ -2,9 +2,9 @@ import "./main.scss";
 
 let $todoInput; //miejsce gdzie użytkownik wpisuje treść zadania
 let $alertInfo; // info o braku zadania, konieczności dodania
-let $addBtn; // przycisk add dodaje nowe elementy do listy
 let $ulList; // nasza lista zadań, tagi <ul></ul>
 let $newTask; //nowo dadane LI
+let $completeBtn;//checkbox wykonanego zadania
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -26,7 +26,6 @@ const prepareDOMElements = () => {
 
     $todoInput = document.querySelector('.todoInput');
     $alertInfo = document.querySelector('.alertInfo');
-    $addBtn = document.querySelector('.addBtn');
     $ulList = document.querySelector('.todoList ul');
 
     $popup = document.querySelector('.popup');
@@ -41,11 +40,12 @@ const prepareDOMElements = () => {
 // nasłuchiwanie na zdarzenia
 const prepareDOMEvents = () => {
 
-    $addBtn.addEventListener('click', addNewTask);
+    $todoInput.addEventListener('keyup', enterCheck);
     $ulList.addEventListener('click', checkClick);
+    $ulList.addEventListener('click', checkCheckbox);
     $closeTodoBtn.addEventListener('click', closePopup);
     $addPopupBtn.addEventListener('click', changeTodo);
-    $todoInput.addEventListener('keyup', enterCheck);
+    
 
 };
 // tworzenie i dodawanie elementu listy
@@ -62,11 +62,11 @@ const addNewTask = () => {
         createToolsArea();
 
     } else {
-        $alertInfo.innerText = 'Wpisz treść zadania!';
+        $alertInfo.innerText = 'Type something!';
 
     }
 };
-
+// dodanie zadania na enter
 const enterCheck = () => {
     if (event.keyCode === 13 ){
         addNewTask();
@@ -75,41 +75,51 @@ const enterCheck = () => {
 
 //tworzenie przycisków edycji zadań
 const createToolsArea = () => {
+    let toolsPanel;
+    let completeBtn;
+    let editBtn;
+    let deleteBtn;
 
     toolsPanel = document.createElement('div');
     toolsPanel.classList.add('tools');
     $newTask.appendChild(toolsPanel);
-
-    completeBtn = document.createElement('button');
-    completeBtn.classList.add('complete');
-    completeBtn.innerHTML = '<i class="fa fa-check"></i>'
-
+   
+    $completeBtn = document.createElement('input');
+    $completeBtn.classList.add('complete');
+    $completeBtn.setAttribute("type", "checkbox");
+   
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
-    editBtn.innerHTML = 'EDIT';
+    editBtn.innerHTML = '<i class="fa fa-edit"></i>';
 
     deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
     deleteBtn.innerHTML = '<i class="fa fa-times"></i>'
 
-    toolsPanel.appendChild(completeBtn);
+    toolsPanel.appendChild($completeBtn);
     toolsPanel.appendChild(editBtn);
     toolsPanel.appendChild(deleteBtn);
 
-};
 
-//kliknięcia w przycicki edycji, usuwania, check
+};
 
 const checkClick = (e) => {
 
-    if (e.target.closest('button').classList.contains('complete')) {
-        e.target.closest('li').classList.toggle('completed');
-        e.target.closest('button').classList.toggle('completed');
-
-    } else if (e.target.closest('button').className === 'edit') {
+    if (e.target.closest('button').className === 'edit') {
        editTask(e);
     } else if (e.target.closest('button').className === 'delete') {
         deleteTask(e);
+    }
+};
+//kliknięcia w przycicki edycji, usuwania, 
+const checkCheckbox = (e) => {
+
+    if (e.target.closest('input').checked === true ){
+        e.target.closest('li').classList.add('completed');
+    
+
+    } else {
+        e.target.closest('li').classList.remove('completed');
     }
 };
 
@@ -129,7 +139,7 @@ const changeTodo = () => {
         $popup.style.display = "none"; 
         $popupInfo.innerText = '';
     }else {
-        $popupInfo.innerText = "Musisz podać jakąś treść";
+        $popupInfo.innerText = "You have to type something!";
     };
 };
 
@@ -145,7 +155,7 @@ const deleteTask = (e) => {
     deleteTodo.remove();
 
     if($allTasks.length === 0 ){
-        $alertInfo.innerText = "Brak zadań na liście"
+        $alertInfo.innerText = "No todo's yet"
     }
 };
 

@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/icon-sun.svg">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <script src="https://use.fontawesome.com/e60f82c9ef.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet"> 
   
   <title>Frontend Mentor | Todo app</title>
 
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+ 
   <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
@@ -19,39 +22,45 @@
 <body class="foo">
   <div class="todo">
     <div class="header">
-        <img src="./assets/bg-desktop-dark.jpg"/>
-        <h1>ToDo List</h1>
-        <input type="text" class="todoInput" placeholder="Wpisz treść zadania...">
-        <button class="addBtn">Add</button>
-    </div>
-    <div class="todoList">
-        <h3>Lista zadań:</h3>
-        <p class="alertInfo">Brak zadań na liście.</p>
-        <ul>
-          <!-- <li id='test'>Wypić kawę<div class="tools"><button class="complete"><i
-                            class="fa fa-check"></i></button><button class="edit">EDIT</button><button
-                        class="delete"><i class="fa fa-times"></i></button>
+        <div class="contentWrapper">
+            <div class="title">
+                    <h1>TODO</h1>
+                    <button class="darkMode">
+                        <img src="./assets/icon-sun.svg"/>
+                    </button>
+                    <button class="lightMode">
+                        <img src="./assets/icon-moon.svg"/>
+                    </button>
+            </div>
+            <div class="inputArea">
+                <input type="text" class="todoInput" placeholder="Create a new todo...">
+            
+            </div>
+            <div class="todoList">
+                    <p class="alertInfo">No todo's yet. Pleas type something</p>
+                    <ul>
+                      
+                    </ul>
                 </div>
-                </li>
-                <li id='test2'>Zjeść śniadanie<div class="tools"><button class="complete"><i
-                                class="fa fa-check"></i></button><button class="edit">EDIT</button><button
-                            class="delete"><i class="fa fa-times"></i></button>
-                    </div>
-                </li>
-                <li id='test3'>Umyć okna<div class="tools"><button class="complete"><i
-                                class="fa fa-check"></i></button><button class="edit">EDIT</button><button
-                            class="delete"><i class="fa fa-times"></i></button>
-                    </div>
-                </li> -->
-        </ul>
+        </div>
     </div>
+    
 </div>
+<div class="popup">
+        <h3>Edytuj zadanie:</h3>
+        <div class="popupBody">
+            <p class="popupInfo"></p>
+            <input type="text" class="popupInput" placeholder="Wprowadź nową treść zadania...">
+            <button class="popupBtn accept">Zatwierdź</button>
+            <button class="popupBtn cancel">Anuluj</button>
+        </div>
+    </div>
   
 </body>
 <footer>
         <div class="attribution">
                 Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-                Coded by <a href="#">Your Name Here</a>.
+                Coded by <a href="#">Martyna</a>.
         </div>
 </footer>
 </html>

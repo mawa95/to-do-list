@@ -11,7 +11,8 @@ module.exports = merge(common, {
     mode : "production",
     output: {
         filename: "main.[contenthash].js",
-        path: path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "dist"),
+        assetModuleFilename: 'images/[hash][ext][query]'
     },
     optimization: {
         minimizer:[
@@ -40,7 +41,7 @@ module.exports = merge(common, {
                 "css-loader", //turns css into commonjs
                 "sass-loader"//turns sass into css
                 ]
-            },
+            }
         ]
     }
 });

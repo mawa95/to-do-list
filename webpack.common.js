@@ -9,17 +9,18 @@ module.exports = {
             {
                 test: /\.html$/,
                 use: ["html-loader"]
-        },
-        {
-            test: /\.(svg|png|jpg|gif)$/,
-            use:{
-                loader: "file-loader",
-                options:{
-                    name:"[name].[hash].[ext]",
-                    outputPath: "imgs"
-                }
-            }
-        }
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
+            {
+
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        
+                type: 'asset/resource',
+        
+              },
 
         ]
     }
