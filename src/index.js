@@ -1,10 +1,19 @@
 import "./main.scss";
+//dark mode
+//popup/dodać zachowanie poza
+//mobilny wygląd
+//filtrowanie listy
+//drag and drop
+
 
 let $todoInput; //miejsce gdzie użytkownik wpisuje treść zadania
 let $alertInfo; // info o braku zadania, konieczności dodania
 let $ulList; // nasza lista zadań, tagi <ul></ul>
 let $newTask; //nowo dadane LI
 let $completeBtn;//checkbox wykonanego zadania
+let $darkModeBtn;
+let $darkModeIco;
+let $lightModeIco;
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -27,6 +36,9 @@ const prepareDOMElements = () => {
     $todoInput = document.querySelector('.todoInput');
     $alertInfo = document.querySelector('.alertInfo');
     $ulList = document.querySelector('.todoList ul');
+    $darkModeBtn = document.querySelector('.darkModeBtn');
+    $darkModeIco = document.querySelector('.darkModeIco')
+    $lightModeIco = document.querySelector('.lightModeIco');
 
     $popup = document.querySelector('.popup');
     $popupInfo = document.querySelector('.popupInfo');
@@ -45,6 +57,7 @@ const prepareDOMEvents = () => {
     $ulList.addEventListener('click', checkCheckbox);
     $closeTodoBtn.addEventListener('click', closePopup);
     $addPopupBtn.addEventListener('click', changeTodo);
+    $darkModeBtn.addEventListener('click', changeMode);
     
 
 };
@@ -58,6 +71,7 @@ const addNewTask = () => {
         $newTask.setAttribute('id', `todo-${$idNumber}`);//dodajemy id do zadania 
         $ulList.appendChild($newTask);
         $todoInput.value = '';
+        //do nowej funkcji
         $alertInfo.innerText = '';
         createToolsArea();
 
@@ -67,7 +81,7 @@ const addNewTask = () => {
     }
 };
 // dodanie zadania na enter
-const enterCheck = () => {
+const enterCheck = (event) => {
     if (event.keyCode === 13 ){
         addNewTask();
     };
@@ -76,7 +90,12 @@ const enterCheck = () => {
 //tworzenie przycisków edycji zadań
 const createToolsArea = () => {
     let toolsPanel;
+<<<<<<< Updated upstream
     let completeBtn;
+=======
+    let checkLabel;
+    let span;
+>>>>>>> Stashed changes
     let editBtn;
     let deleteBtn;
 
@@ -87,6 +106,15 @@ const createToolsArea = () => {
     $completeBtn = document.createElement('input');
     $completeBtn.classList.add('complete');
     $completeBtn.setAttribute("type", "checkbox");
+<<<<<<< Updated upstream
+=======
+    
+    checkLabel = document.createElement('label');
+    checkLabel.classList.add('checkbox');
+
+    // span = document.createElement('span');
+    // checkLabel.appendChild(span);
+>>>>>>> Stashed changes
    
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
@@ -111,13 +139,13 @@ const checkClick = (e) => {
         deleteTask(e);
     }
 };
+
 //kliknięcia w przycicki edycji, usuwania, 
 const checkCheckbox = (e) => {
 
     if (e.target.closest('input').checked === true ){
         e.target.closest('li').classList.add('completed');
     
-
     } else {
         e.target.closest('li').classList.remove('completed');
     }
@@ -131,7 +159,7 @@ const editTask = (e) => {
     $popup.style.display = "flex";
 
 }
-
+//event listner do konkretnego elementu, parent elem
 // sprawdzamy czy popup nie jest pusty i zmieniamy treść zadania po edycji
 const changeTodo = () => {
     if ($popupInput.value !== ''){
@@ -144,11 +172,12 @@ const changeTodo = () => {
 };
 
 
-//zamykanie popup
+//zamykanie popup, zrób prawdziwy popup
 const closePopup = () => {
     $popup.style.display = "none";
     $popupInfo.innerText = '';
    };
+
 //usuwanie zadania
 const deleteTask = (e) => {
     const deleteTodo = e.target.closest('li');
@@ -159,5 +188,19 @@ const deleteTask = (e) => {
     }
 };
 
+const changeMode = () => {
+    document.body.classList.toggle('darkMode');
+
+    if(document.body.classList.contains('darkMode')){
+        $lightModeIco.classList.add('hide')
+        $darkModeIco.classList.remove('hide');
+        
+    } else {
+        $lightModeIco.classList.remove('hide');
+        $darkModeIco.classList.add('hide');
+       
+        
+    };
+}
 
 document.addEventListener('DOMContentLoaded', main);
