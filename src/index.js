@@ -5,6 +5,9 @@ let $alertInfo; // info o braku zadania, konieczności dodania
 let $ulList; // nasza lista zadań, tagi <ul></ul>
 let $newTask; //nowo dadane LI
 let $completeBtn;//checkbox wykonanego zadania
+let $darkModeBtn;
+let $darkModeIco;
+let $lightModeIco;
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -27,6 +30,9 @@ const prepareDOMElements = () => {
     $todoInput = document.querySelector('.todoInput');
     $alertInfo = document.querySelector('.alertInfo');
     $ulList = document.querySelector('.todoList ul');
+    $darkModeBtn = document.querySelector('.darkModeBtn');
+    $darkModeIco = document.querySelector('.darkModeIco')
+    $lightModeIco = document.querySelector('.lightModeIco');
 
     $popup = document.querySelector('.popup');
     $popupInfo = document.querySelector('.popupInfo');
@@ -45,6 +51,7 @@ const prepareDOMEvents = () => {
     $ulList.addEventListener('click', checkCheckbox);
     $closeTodoBtn.addEventListener('click', closePopup);
     $addPopupBtn.addEventListener('click', changeTodo);
+    $darkModeBtn.addEventListener('click', changeMode);
     
 
 };
@@ -77,6 +84,7 @@ const enterCheck = () => {
 const createToolsArea = () => {
     let toolsPanel;
     let checkLabel;
+    let span;
     let editBtn;
     let deleteBtn;
 
@@ -91,7 +99,8 @@ const createToolsArea = () => {
     checkLabel = document.createElement('label');
     checkLabel.classList.add('checkbox');
 
-    
+    // span = document.createElement('span');
+    // checkLabel.appendChild(span);
    
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
@@ -165,5 +174,19 @@ const deleteTask = (e) => {
     }
 };
 
+const changeMode = () => {
+    document.body.classList.toggle('darkMode');
+
+    if(document.body.classList.contains('darkMode')){
+        $lightModeIco.classList.add('hide')
+        $darkModeIco.classList.remove('hide');
+        
+    } else {
+        $lightModeIco.classList.remove('hide');
+        $darkModeIco.classList.add('hide');
+       
+        
+    };
+}
 
 document.addEventListener('DOMContentLoaded', main);

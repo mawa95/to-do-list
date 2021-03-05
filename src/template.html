@@ -19,18 +19,17 @@
   </style>
 
 </head>
-<body class="foo">
+<body class="foo darkMode">
   <div class="todo">
     <div class="header">
         <div class="contentWrapper">
             <div class="title">
                     <h1>TODO</h1>
-                    <button class="darkMode">
-                        <img src="./assets/icon-sun.svg"/>
+                    <button class="darkModeBtn">
+                        <img class="darkModeIco"src="./assets/icon-sun.svg"/>
+                        <img class="lightModeIco hide"src="./assets/icon-moon.svg"/>
                     </button>
-                    <button class="lightMode">
-                        <img src="./assets/icon-moon.svg"/>
-                    </button>
+  
             </div>
             <div class="inputArea">
                 <input type="text" class="todoInput" placeholder="Create a new todo...">
@@ -40,7 +39,17 @@
                     <p class="alertInfo">No todo's yet. Pleas type something</p>
                     <ul>
                       
+                     
                     </ul>
+                    <div class="infoArea">
+                        <div class="">? items left</div>
+                        <div class="filterList">
+                            <button class="allTodo">All</button>
+                            <button class="activeTodo">Active</button>
+                            <button class="completedTodo">Completed</button>
+                        </div>
+                        <button class="clearCompleted">Clear Completed</button>
+                    </div>
                 </div>
         </div>
     </div>
@@ -50,9 +59,13 @@
         <h3>Edytuj zadanie:</h3>
         <div class="popupBody">
             <p class="popupInfo"></p>
-            <input type="text" class="popupInput" placeholder="Wprowadź nową treść zadania...">
-            <button class="popupBtn accept">Zatwierdź</button>
-            <button class="popupBtn cancel">Anuluj</button>
+            <input type="text" class="popupInput" placeholder="Edit todo...">
+            <button class="popupBtn accept">
+              <img src="./assets/icon-check.svg"/>
+            </button>
+            <button class="popupBtn cancel">
+              <img src="./assets/icon-cross.svg"/>
+            </button>
         </div>
     </div>
   
