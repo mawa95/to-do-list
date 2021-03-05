@@ -11,9 +11,9 @@ let $alertInfo; // info o braku zadania, konieczności dodania
 let $ulList; // nasza lista zadań, tagi <ul></ul>
 let $newTask; //nowo dadane LI
 let $completeBtn;//checkbox wykonanego zadania
-let $darkModeBtn;
-let $darkModeIco;
-let $lightModeIco;
+let $darkModeBtn;//przycisk do zmiany darkmode/lightmode
+let $darkModeIco;//ikona darkMode
+let $lightModeIco;//ikona lightMode
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -70,9 +70,12 @@ const addNewTask = () => {
         $newTask.innerText = $todoInput.value;
         $newTask.setAttribute('id', `todo-${$idNumber}`);//dodajemy id do zadania 
         $ulList.appendChild($newTask);
+        
+    
         $todoInput.value = '';
         //do nowej funkcji
         $alertInfo.innerText = '';
+        createCheckbox();
         createToolsArea();
 
     } else {
@@ -80,6 +83,23 @@ const addNewTask = () => {
 
     }
 };
+const createCheckbox = () => {
+    let checkLabel;
+    let span;
+    $completeBtn = document.createElement('input');
+    $completeBtn.classList.add('complete');
+    $completeBtn.setAttribute("type", "checkbox");
+
+    checkLabel = document.createElement('label');
+    checkLabel.classList.add('checkbox');
+
+    span = document.createElement('span');
+
+    checkLabel.appendChild(span);
+    checkLabel.appendChild($completeBtn)
+
+    $newTask.prepend(checkLabel);
+}
 // dodanie zadania na enter
 const enterCheck = (event) => {
     if (event.keyCode === 13 ){
@@ -90,31 +110,12 @@ const enterCheck = (event) => {
 //tworzenie przycisków edycji zadań
 const createToolsArea = () => {
     let toolsPanel;
-<<<<<<< Updated upstream
-    let completeBtn;
-=======
-    let checkLabel;
-    let span;
->>>>>>> Stashed changes
     let editBtn;
     let deleteBtn;
 
     toolsPanel = document.createElement('div');
     toolsPanel.classList.add('tools');
     $newTask.appendChild(toolsPanel);
-   
-    $completeBtn = document.createElement('input');
-    $completeBtn.classList.add('complete');
-    $completeBtn.setAttribute("type", "checkbox");
-<<<<<<< Updated upstream
-=======
-    
-    checkLabel = document.createElement('label');
-    checkLabel.classList.add('checkbox');
-
-    // span = document.createElement('span');
-    // checkLabel.appendChild(span);
->>>>>>> Stashed changes
    
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
@@ -124,9 +125,10 @@ const createToolsArea = () => {
     deleteBtn.classList.add('delete');
     deleteBtn.innerHTML = '<i class="fa fa-times"></i>'
 
-    toolsPanel.appendChild($completeBtn);
     toolsPanel.appendChild(editBtn);
     toolsPanel.appendChild(deleteBtn);
+
+
 
 
 };

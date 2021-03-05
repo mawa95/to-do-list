@@ -5,25 +5,39 @@ $check-background: linear-gradient( hsl(192, 100%, 67%), hsl(280, 87%, 65%));
 $light-gray: hsl(0, 0%, 98%);
 $light-grayish-blue:hsl(236, 33%, 92%);
 $grayish-blue:hsl(233, 11%, 84%);
-$dark-grayish-blue:#313245;
-$very-dark-grayish-blue:#242129;
+$dark-grayish-blue:#25273C;
+$very-dark-grayish-blue:#181824;
 *{
     font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
     margin: 0;
+    color: white;
     
     
 }
 .darkMode{
     color: white;
     background:$very-dark-grayish-blue;
+    input{
+        color: white;
+    }
+    input, .todoInput, .todoList{
+        background: $dark-grayish-blue;
+    }
+    .circle{
+        border-color:rgba(255,255,255,0.1);
+    }
 }
 button{
     border: none;
     background: none;
 }
+input{
+    outline: none;
+    font-size: 18px;
+    color:#BCBED5;
+}
 body, .header, .todo, .todoList, li, .infoArea{
-    color: white;
     font-size: 18px;
     display: flex;
     justify-content: center;
@@ -35,33 +49,43 @@ body, .header, .todo, .todoList, li, .infoArea{
     width: 1440px;
 }
 .contentWrapper{
-    width: 500px;
+    width: 540px;
     height: 100%;
-    margin-top: 200px;
+    margin-top: 150px;
     .title{
         display: flex;
         justify-content: space-between;
+        margin-bottom: 35px;
+        font-weight: 700;
     }
     h1{
-        letter-spacing: 10px;
-        margin-bottom: 20px;
+        letter-spacing: 15px;
+        font-weight: bold;
+        font-size: 40px;
+        
     }
     .darkMode, .lightMode{
         background: none;
         border: none;
     }
     .todoInput{
-        height: 50px;
-        border-radius: 3px;
+        height: 65px;
+       
         width: 100%;
-        padding-left: 30px;
+        padding-left: 75px;
+        box-shadow: 4px 15px 17px 0px rgba(0, 0, 0, 0.25);
     }
     .inputArea{
-        margin: 0, 0, 10px,0;
+        position: relative;
+       margin-bottom: 23px;
     }
 }
+
 .foo, .todo, .header{
     flex-direction: column;
+}
+.todoInput, .todoList{
+    border-radius: 5px;
 }
 
 .foo{
@@ -82,36 +106,33 @@ body, .header, .todo, .todoList, li, .infoArea{
     
 }
 input, .todoInput, .todoList{
-    background: $dark-grayish-blue;
+    color: black;
+    background: white;
     border:none;
     box-shadow: none;
 }
 .todoList{
-   
+    box-shadow:-2px 40px 40px 0px rgba(0, 0, 0, 0.2);
     justify-content: space-between;
     flex-direction: column;
-    border-radius: 3px;
-    min-height: 300px;
+    min-height: 440px;
     ul{
+        width: 100%;
         padding: 10px;
         list-style-type:none;
-        position: relative;
+
     }
     li{
-        padding: 25px;
         justify-content: space-between;
         margin: 0 auto;
         height: 50px;
         border-bottom: 1px solid rgba(255,255,255,0.1);
-        margin-left: 10px;
-       input{
-           
-           position: absolute;
-            right: 373px;
-            top: -21px;
-       }
     }
 
+}
+ li > .tools{
+    display: flex;
+    justify-self: flex-end;
 }
 footer{
     padding-top: 3px; 
@@ -123,7 +144,6 @@ footer{
 }
 .alertInfo{
     font-size: 13px;
-    color: $grayish-blue;
 }
 .hide{
     display: none;
@@ -131,18 +151,13 @@ footer{
 
 
 
-// .complete {
-//     color: blue;
-// }
-
-.edit {
- 
-   
+.complete, .edit, .delete {
+    color: white;
 }
 
-.delete {
-    color: tomato;
-}
+
+
+
 
 .completed {
     text-decoration:line-through; 
@@ -153,24 +168,29 @@ footer{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: 800px;
-    color: var(--light);
-    background-color: var(--light-dark);
     border-radius: 5px;
+    position: fixed;
 }
 
-
+.circle{
+    position: absolute;
+    left: 25px;
+    top: 20px;
+    height: 25px;
+  width: 25px;
+  border: 1px solid  rgba(0,0,0,0.5);
+  border-radius: 50%;
+}
 
 
 // syle dla checkbocha
 .checkbox {
     display: inline-flex;
     cursor: pointer;
-    position: relative;
 }
 
 .checkbox > span {
@@ -212,4 +232,8 @@ footer{
 }
 .infoArea{
     justify-content: space-between;
+}
+
+.alertInfo{
+    display:none;
 }
