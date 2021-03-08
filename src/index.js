@@ -14,6 +14,7 @@ let $completeBtn;//checkbox wykonanego zadania
 let $darkModeBtn;//przycisk do zmiany darkmode/lightmode
 let $darkModeIco;//ikona darkMode
 let $lightModeIco;//ikona lightMode
+let $sumItems;
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -47,6 +48,8 @@ const prepareDOMElements = () => {
     $closeTodoBtn = document.querySelector('.cancel');
     $allTasks = $ulList.getElementsByTagName('li');
 
+    $sumItems = document.querySelector('.sumItems');
+
 };
 
 // nasłuchiwanie na zdarzenia
@@ -77,6 +80,9 @@ const addNewTask = () => {
         $alertInfo.innerText = '';
         createCheckbox();
         createToolsArea();
+        numberOfListItems();
+       
+    
 
     } else {
         $alertInfo.innerText = 'Type something!';
@@ -111,6 +117,7 @@ const enterCheck = (event) => {
 const createToolsArea = () => {
     let toolsPanel;
     let editBtn;
+    let crossImg;
     let deleteBtn;
 
     toolsPanel = document.createElement('div');
@@ -123,7 +130,9 @@ const createToolsArea = () => {
 
     deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
-    deleteBtn.innerHTML = '<i class="fa fa-times"></i>'
+    crossImg = document.createElement('div');
+    crossImg.classList.add('crossImg');
+    deleteBtn.appendChild(crossImg);
 
     toolsPanel.appendChild(editBtn);
     toolsPanel.appendChild(deleteBtn);
@@ -140,6 +149,8 @@ const checkClick = (e) => {
     } else if (e.target.closest('button').className === 'delete') {
         deleteTask(e);
     }
+
+    numberOfListItems();
 };
 
 //kliknięcia w przycicki edycji, usuwania, 
@@ -147,6 +158,7 @@ const checkCheckbox = (e) => {
 
     if (e.target.closest('input').checked === true ){
         e.target.closest('li').classList.add('completed');
+        numberOfListItems();
     
     } else {
         e.target.closest('li').classList.remove('completed');
@@ -203,6 +215,10 @@ const changeMode = () => {
        
         
     };
+}
+
+const numberOfListItems = () => {
+    $sumItems.innerText = `${$allTasks.length} items left`;
 }
 
 document.addEventListener('DOMContentLoaded', main);
