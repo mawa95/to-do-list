@@ -10,11 +10,17 @@ let $todoInput; //miejsce gdzie użytkownik wpisuje treść zadania
 let $alertInfo; // info o braku zadania, konieczności dodania
 let $ulList; // nasza lista zadań, tagi <ul></ul>
 let $newTask; //nowo dadane LI
-let $completeBtn;//checkbox wykonanego zadania
-let $darkModeBtn;//przycisk do zmiany darkmode/lightmode
-let $darkModeIco;//ikona darkMode
-let $lightModeIco;//ikona lightMode
-let $sumItems;
+let $completeBtn; //checkbox wykonanego zadania
+let $darkModeBtn; //przycisk do zmiany darkmode/lightmode
+let $darkModeIco; //ikona darkMode
+let $lightModeIco; //ikona lightMode
+let $sumItems; //liczba wszystkich zadań na liście
+let $completedTodoBtn; //przycisk do filtrowania zadań zrobionych
+let $activeTodoBtn; //przycisk do filtrowania zadań aktywnych, do zrobienia
+let $activeTodo;
+let $completedTodo;
+let $allTodoBtn; //przycisk pokazujący wszystkie zadania z listy
+let $filterListBtns;//div z wszytskimi przyciskami do filtrowania listy
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -22,7 +28,7 @@ let $editedTodo; //edytowany Todo
 let $popupInput; //tekst wpisywany w inputa w popupie
 let $addPopupBtn; // przycisk "zatwierdź" w popupie
 let $closeTodoBtn; //przycisk od zamykania popupa
-let $idNumber = 0 ;
+let $idNumber = 0;
 let $allTasks;
 
 
@@ -49,6 +55,10 @@ const prepareDOMElements = () => {
     $allTasks = $ulList.getElementsByTagName('li');
 
     $sumItems = document.querySelector('.sumItems');
+    $completedTodoBtn = document.querySelector('.completedTodo');
+    $activeTodoBtn = document.querySelector('.activeTodo');
+    $allTodoBtn = document.querySelector('.allTodo');
+    $filterListBtns = document.querySelector('.filterListBtns');
 
 };
 
@@ -61,28 +71,36 @@ const prepareDOMEvents = () => {
     $closeTodoBtn.addEventListener('click', closePopup);
     $addPopupBtn.addEventListener('click', changeTodo);
     $darkModeBtn.addEventListener('click', changeMode);
-    
+
+    $completedTodoBtn.addEventListener('click', filterCompleted);
+    $activeTodoBtn.addEventListener('click', filterActive);
+    $allTodoBtn.addEventListener('click', filterAll);
+
+    $completeBtn.addEventListener('click', activeButton);
+
+
 
 };
 // tworzenie i dodawanie elementu listy
 const addNewTask = () => {
 
     if ($todoInput.value !== '') {
-        $idNumber++;//
+        $idNumber++; //
         $newTask = document.createElement('li');
         $newTask.innerText = $todoInput.value;
-        $newTask.setAttribute('id', `todo-${$idNumber}`);//dodajemy id do zadania 
+        $newTask.setAttribute('id', `todo-${$idNumber}`); //dodajemy id do zadania 
         $ulList.appendChild($newTask);
-        
-    
+
+
         $todoInput.value = '';
         //do nowej funkcji
         $alertInfo.innerText = '';
         createCheckbox();
         createToolsArea();
         numberOfListItems();
-       
-    
+
+
+
 
     } else {
         $alertInfo.innerText = 'Type something!';
@@ -108,7 +126,7 @@ const createCheckbox = () => {
 }
 // dodanie zadania na enter
 const enterCheck = (event) => {
-    if (event.keyCode === 13 ){
+    if (event.keyCode === 13) {
         addNewTask();
     };
 };
@@ -123,7 +141,7 @@ const createToolsArea = () => {
     toolsPanel = document.createElement('div');
     toolsPanel.classList.add('tools');
     $newTask.appendChild(toolsPanel);
-   
+
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
     editBtn.innerHTML = '<i class="fa fa-edit"></i>';
@@ -145,24 +163,26 @@ const createToolsArea = () => {
 const checkClick = (e) => {
 
     if (e.target.closest('button').className === 'edit') {
-       editTask(e);
+        editTask(e);
     } else if (e.target.closest('button').className === 'delete') {
         deleteTask(e);
     }
 
-    numberOfListItems();
+     numberOfListItems();
+
+
 };
 
 //kliknięcia w przycicki edycji, usuwania, 
 const checkCheckbox = (e) => {
 
-    if (e.target.closest('input').checked === true ){
+    if (e.target.closest('input').checked === true) {
         e.target.closest('li').classList.add('completed');
-        numberOfListItems();
-    
+
     } else {
         e.target.closest('li').classList.remove('completed');
     }
+    numberOfListItems();
 };
 
 //edycja zadan
@@ -176,11 +196,11 @@ const editTask = (e) => {
 //event listner do konkretnego elementu, parent elem
 // sprawdzamy czy popup nie jest pusty i zmieniamy treść zadania po edycji
 const changeTodo = () => {
-    if ($popupInput.value !== ''){
+    if ($popupInput.value !== '') {
         $editedTodo.firstChild.textContent = $popupInput.value; //do naszego pobranego li przypisujemy treść z inputa
-        $popup.style.display = "none"; 
+        $popup.style.display = "none";
         $popupInfo.innerText = '';
-    }else {
+    } else {
         $popupInfo.innerText = "You have to type something!";
     };
 };
@@ -190,14 +210,14 @@ const changeTodo = () => {
 const closePopup = () => {
     $popup.style.display = "none";
     $popupInfo.innerText = '';
-   };
+};
 
 //usuwanie zadania
 const deleteTask = (e) => {
     const deleteTodo = e.target.closest('li');
     deleteTodo.remove();
 
-    if($allTasks.length === 0 ){
+    if ($allTasks.length === 0) {
         $alertInfo.innerText = "No todo's yet"
     }
 };
@@ -205,20 +225,70 @@ const deleteTask = (e) => {
 const changeMode = () => {
     document.body.classList.toggle('darkMode');
 
-    if(document.body.classList.contains('darkMode')){
+    if (document.body.classList.contains('darkMode')) {
         $lightModeIco.classList.add('hide')
         $darkModeIco.classList.remove('hide');
-        
+
     } else {
         $lightModeIco.classList.remove('hide');
         $darkModeIco.classList.add('hide');
-       
-        
+
+
     };
+
 }
 
 const numberOfListItems = () => {
-    $sumItems.innerText = `${$allTasks.length} items left`;
+    let caunter = 0;
+    for (let i = 0; i < $allTasks.length; i++) {
+        caunter++
+        if ($allTasks[i].classList.contains('completed')) {
+            caunter = caunter - 1;
+        }
+    }
+    $sumItems.innerText = `${caunter} items left`;
 }
+
+const filterCompleted = () => {
+
+    for (let i = 0; i < $allTasks.length; i++) {
+        //ukryj
+        $allTasks[i].style.display = 'none';
+        //if activ pokaz
+        if ($allTasks[i].classList.contains('completed')) {
+            let $activeTodo = $allTasks[i].style.display = 'flex';
+
+        };
+
+    }
+}
+
+const filterActive = () => {
+
+    for (let i = 0; i < $allTasks.length; i++) {
+        $allTasks[i].style.display = 'none';
+        if (!$allTasks[i].classList.contains('completed')) {
+            let $completedTodo = $allTasks[i].style.display = 'flex';
+
+        };
+    }
+}
+
+const filterAll = () => {
+
+    for (let i = 0; i < $allTasks.length; i++) {
+        $allTasks[i].style.display = 'flex';
+
+    }
+   
+}
+//dodanie klasy active do przycisku filtrujacego
+let filterBtns = $filterListBtns.getElementsByTagName('button');
+for (let i = 0; i < filterBtns.length; i++) {
+    filterBtns[i].addEventListener("click", function(){
+      let current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.toggle("active");
+    });
+  }
 
 document.addEventListener('DOMContentLoaded', main);

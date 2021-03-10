@@ -7,21 +7,27 @@ $gradient : linear-gradient(0deg, rgba(87,221,255,1) 0%, rgba(192,88,243,1) 100%
 $light-gray: hsl(0, 0%, 98%);
 $light-grayish-blue:hsl(236, 33%, 92%);
 $grayish-blue:hsl(233, 11%, 84%);
-$dark-grayish-blue:#25273C;
-$very-dark-grayish-blue:#181824;
+$dark-grayish-blue:hsl(235, 24%, 19%);
+$very-dark-grayish-blue:hsl(235, 21%, 11%);
 *{
     font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
     margin: 0;
-    color: white;
+   
     
     
 }
+input, .todoInput, .todoList{
+    color: black;
+    background: white;
+    border:none;
+    box-shadow: none;
+}
 .darkMode{
-    color: white;
+    color:hsl(236, 33%, 92%);
     background:$very-dark-grayish-blue;
-    input{
-        color: white;
+    input, .todoInput, .todoList{
+        color: hsl(236, 33%, 92%);
     }
     input, .todoInput, .todoList{
         background: $dark-grayish-blue;
@@ -33,13 +39,19 @@ $very-dark-grayish-blue:#181824;
 button{
     border: none;
     background: none;
+    padding: 0;
+    
+}
+button:focus{
+    color: blue;
 }
 input{
     outline: none;
     font-size: 18px;
-    color:#BCBED5;
+    color: hsl(236, 33%, 92%);
 }
 body, .header, .todo, .todoList, li, .infoArea{
+
     font-size: 18px;
     display: flex;
     justify-content: center;
@@ -107,12 +119,7 @@ body, .header, .todo, .todoList, li, .infoArea{
     }
     
 }
-input, .todoInput, .todoList{
-    color: black;
-    background: white;
-    border:none;
-    box-shadow: none;
-}
+
 .todoList{
     box-shadow:-2px 40px 40px 0px rgba(0, 0, 0, 0.2);
     justify-content: space-between;
@@ -163,17 +170,10 @@ footer{
 
 
 
-.complete, .edit, .delete {
-    color: white;
-}
-
-
-
-
 
 .completed {
     text-decoration:line-through; 
-    color: GREY;
+    color: hsl(234, 11%, 52%);
 }
 .popup {
     display: none;
@@ -200,9 +200,7 @@ footer{
 
 
 // syle dla checkbocha
-label{
 
-}
 .checkbox {
     display: inline-flex;
     cursor: pointer;
@@ -234,11 +232,14 @@ label{
         background-image: linear-gradient(#25273C, #25273C ), radial-gradient(circle at top left, rgba(87,221,255,1) ,rgba(192,88,243,1));
         background-origin: border-box;
         background-clip: content-box, border-box;
-      }
+    }
+
   }
+
 .checkbox > input:checked {
     background: rgb(87,221,255);
-    background: linear-gradient(0deg, rgba(87,221,255,1) 0%, rgba(192,88,243,1) 100%);
+    background: linear-gradient( hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    border-color: transparent;
 }
 
 .checkbox > input:checked + label::before {
@@ -256,9 +257,18 @@ label{
     border: 2px solid #34495E;
 }
 .infoArea{
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-size: 15px;
+    height: 50px;
 }
-
+.sumItems, .filterList > button, .clearCompleted{
+    color:hsl(234, 11%, 52%);
+    &:hover{
+        color:hsl(236, 33%, 92%);
+    }
+}
 .alertInfo{
     display:none;
 }
@@ -267,4 +277,8 @@ label{
     background-image: url('./assets/icon-cross.svg');
     width: 18px;
     height: 18px;
+}
+
+.allTodo:focus, .activeTodo:focus, .completedTodo:focus, .active{
+    color:hsl(220, 98%, 61%);
 }
