@@ -20,7 +20,7 @@ let $activeTodoBtn; //przycisk do filtrowania zadań aktywnych, do zrobienia
 let $activeTodo;
 let $completedTodo;
 let $allTodoBtn; //przycisk pokazujący wszystkie zadania z listy
-let $filterListBtns;//div z wszytskimi przyciskami do filtrowania listy
+//let $filterListBtns;//div z wszytskimi przyciskami do filtrowania listy
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -58,7 +58,8 @@ const prepareDOMElements = () => {
     $completedTodoBtn = document.querySelector('.completedTodo');
     $activeTodoBtn = document.querySelector('.activeTodo');
     $allTodoBtn = document.querySelector('.allTodo');
-    $filterListBtns = document.querySelector('.filterListBtns');
+   // $filterListBtns = document.querySelector('.filterListBtns');
+    //let filterBtns = $filterListBtns.getElementsByTagName('button');
 
 };
 
@@ -283,12 +284,13 @@ const filterAll = () => {
    
 }
 //dodanie klasy active do przycisku filtrujacego
-let filterBtns = $filterListBtns.getElementsByTagName('button');
-for (let i = 0; i < filterBtns.length; i++) {
-    filterBtns[i].addEventListener("click", function(){
-      let current = document.getElementsByClassName("active");
-      current[0].className = current[0].className.toggle("active");
-    });
-  }
+
+//console.log(filterBtns);
+// for (let i = 0; i < filterBtns.length; i++) {
+//     filterBtns[i].addEventListener("click", function(){
+//       let current = document.getElementsByClassName("active");
+//       current[0].className = current[0].className.toggle("active");
+//     });
+//   }
 
 document.addEventListener('DOMContentLoaded', main);
