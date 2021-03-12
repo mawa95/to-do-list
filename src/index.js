@@ -68,7 +68,7 @@ const prepareDOMEvents = () => {
     $todoInput.addEventListener('keyup', enterCheck);
     $ulList.addEventListener('click', checkClick);
     $ulList.addEventListener('click', checkCheckbox);
-    document.body.addEventListener('click', closePopup);
+    document.addEventListener('click', closePopup)
     $addPopupBtn.addEventListener('click', changeTodo);
     $darkModeBtn.addEventListener('click', changeMode);
 
@@ -207,16 +207,16 @@ const changeTodo = () => {
 
 
 //zamykanie popup, zrób prawdziwy popup
-const closePopup = (event) => {
+const closePopup = (e) => {
     // $popup.style.display = "none";
     // $popupInfo.innerText = '';
-    console.log(e.target.closest('.popup'));
-    if(event.target.matches(".cancel")  ||  !event.target.closest('div .popup')){
+    
+    if(e.target.matches(".cancel")  ||  !e.target.closest('.popup')){
         
-        closeModal()
+        hidePopup()
     }
 };
-function closeModal() {
+function hidePopup() {
     $popup.style.display = "none";
     // popupInfo.innerText = ''
   }
