@@ -42,9 +42,7 @@ button{
     padding: 0;
     
 }
-button:focus{
-    color: blue;
-}
+
 input{
     outline: none;
     font-size: 18px;
@@ -177,15 +175,21 @@ footer{
 }
 .popup {
     display: none;
+    background: #34495E;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    bottom: 20px;
-    left: 50%;
     transform: translateX(-50%);
-    width: 800px;
     border-radius: 5px;
+    // display: flex;
     position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+     max-width: 100%;
+     height: 200px;
+     max-height: 100%;
 }
 
 .circle{
@@ -263,7 +267,7 @@ footer{
     font-size: 15px;
     height: 50px;
 }
-.sumItems, .filterList > button, .clearCompleted{
+.sumItems, .filterListBtns, .filterListBtns > button, .clearCompleted{
     color:hsl(234, 11%, 52%);
     &:hover{
         color:hsl(236, 33%, 92%);

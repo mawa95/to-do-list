@@ -17,10 +17,10 @@ let $lightModeIco; //ikona lightMode
 let $sumItems; //liczba wszystkich zadań na liście
 let $completedTodoBtn; //przycisk do filtrowania zadań zrobionych
 let $activeTodoBtn; //przycisk do filtrowania zadań aktywnych, do zrobienia
-let $activeTodo;
-let $completedTodo;
+let $activeTodo;//zadanie niezrobione
+let $completedTodo;// zadanie zrobione z klasą completed
 let $allTodoBtn; //przycisk pokazujący wszystkie zadania z listy
-//let $filterListBtns;//div z wszytskimi przyciskami do filtrowania listy
+let $clearCompletedBtn;
 
 let $popup; // pobrany popup
 let $popupInfo; // alert w popupie na pusty tekst
@@ -58,8 +58,7 @@ const prepareDOMElements = () => {
     $completedTodoBtn = document.querySelector('.completedTodo');
     $activeTodoBtn = document.querySelector('.activeTodo');
     $allTodoBtn = document.querySelector('.allTodo');
-   // $filterListBtns = document.querySelector('.filterListBtns');
-    //let filterBtns = $filterListBtns.getElementsByTagName('button');
+    $clearCompletedBtn = document.querySelector('.clearCompleted')
 
 };
 
@@ -76,8 +75,8 @@ const prepareDOMEvents = () => {
     $completedTodoBtn.addEventListener('click', filterCompleted);
     $activeTodoBtn.addEventListener('click', filterActive);
     $allTodoBtn.addEventListener('click', filterAll);
+    $clearCompletedBtn.addEventListener('click', clearCompletedItems);
 
-    $completeBtn.addEventListener('click', activeButton);
 
 
 
@@ -188,9 +187,9 @@ const checkCheckbox = (e) => {
 
 //edycja zadan
 const editTask = (e) => {
-    const oldTdo = e.target.closest('li').id; //klik na button edid i odwolujemy się do jego najbliżego li
-    $editedTodo = document.getElementById(oldTdo);
-    $popupInput.value = $editedTodo.firstChild.textContent; // w inpucie popupa pojawia się treść edytowanego zadania
+    const oldTodo = e.target.closest('li').id; //klik na button edit i odwolujemy się do jego najbliżego li
+    $editedTodo = document.getElementById(oldTodo);
+    $popupInput.value = $editedTodo.firstChild.nextSibling.textContent;; // w inpucie popupa pojawia się treść edytowanego zadania
     $popup.style.display = "flex";
 
 }
@@ -198,7 +197,7 @@ const editTask = (e) => {
 // sprawdzamy czy popup nie jest pusty i zmieniamy treść zadania po edycji
 const changeTodo = () => {
     if ($popupInput.value !== '') {
-        $editedTodo.firstChild.textContent = $popupInput.value; //do naszego pobranego li przypisujemy treść z inputa
+        $editedTodo.firstChild.nextSibling.textContent = $popupInput.value; //do naszego pobranego li przypisujemy treść z inputa
         $popup.style.display = "none";
         $popupInfo.innerText = '';
     } else {
@@ -208,9 +207,14 @@ const changeTodo = () => {
 
 
 //zamykanie popup, zrób prawdziwy popup
-const closePopup = () => {
+const closePopup = (e) => {
     $popup.style.display = "none";
     $popupInfo.innerText = '';
+
+    // if(!e.target.closest('div').classList.contains('popup')){
+    //     $popup.style.display = "none";
+        
+    // }
 };
 
 //usuwanie zadania
@@ -222,7 +226,7 @@ const deleteTask = (e) => {
         $alertInfo.innerText = "No todo's yet"
     }
 };
-
+// funkcja przęłaczająca darkmode/lightmode
 const changeMode = () => {
     document.body.classList.toggle('darkMode');
 
@@ -238,7 +242,7 @@ const changeMode = () => {
     };
 
 }
-
+//funkcja zliczająca ilośc zadań do zrobienia
 const numberOfListItems = () => {
     let caunter = 0;
     for (let i = 0; i < $allTasks.length; i++) {
@@ -250,11 +254,16 @@ const numberOfListItems = () => {
     $sumItems.innerText = `${caunter} items left`;
 }
 
+// funkcja ukrywa wszystkie zadania z wyjątkiem completed
 const filterCompleted = () => {
 
     for (let i = 0; i < $allTasks.length; i++) {
         //ukryj
         $allTasks[i].style.display = 'none';
+
+        $activeTodoBtn.classList.remove('active');
+        $allTodoBtn.classList.remove('active');
+        $completedTodoBtn.classList.add('active');
         //if activ pokaz
         if ($allTasks[i].classList.contains('completed')) {
             let $activeTodo = $allTasks[i].style.display = 'flex';
@@ -264,10 +273,17 @@ const filterCompleted = () => {
     }
 }
 
+//funcka ukrywa wszystkie zadania z wyjątkiem aktywnych
 const filterActive = () => {
 
     for (let i = 0; i < $allTasks.length; i++) {
+
         $allTasks[i].style.display = 'none';
+
+        $activeTodoBtn.classList.add('active');
+        $allTodoBtn.classList.remove('active');
+        $completedTodoBtn.classList.remove('active');
+
         if (!$allTasks[i].classList.contains('completed')) {
             let $completedTodo = $allTasks[i].style.display = 'flex';
 
@@ -275,22 +291,36 @@ const filterActive = () => {
     }
 }
 
+//funkcja pozakuje wszystkie zadania na liście
 const filterAll = () => {
 
     for (let i = 0; i < $allTasks.length; i++) {
+
+        $activeTodoBtn.classList.remove('active');
+        $allTodoBtn.classList.add('active');
+        $completedTodoBtn.classList.remove('active');
+
         $allTasks[i].style.display = 'flex';
 
     }
    
 }
-//dodanie klasy active do przycisku filtrujacego
 
-//console.log(filterBtns);
-// for (let i = 0; i < filterBtns.length; i++) {
-//     filterBtns[i].addEventListener("click", function(){
-//       let current = document.getElementsByClassName("active");
-//       current[0].className = current[0].className.toggle("active");
-//     });
-//   }
+// funkcja usuwa zadania z klasą completed
+const clearCompletedItems = () => {
+    let arr = []
+    for (let i = 0; i < $allTasks.length; i++) {
+       
+        if ($allTasks[i].classList.contains('completed')) {
+            let $activeTodo = $allTasks[i];
+
+            $activeTodo.remove();
+            // let $activeTodo = arr.push($allTasks[i])
+            // $activeTodo.remove;
+        };
+        
+    }
+   
+}
 
 document.addEventListener('DOMContentLoaded', main);
