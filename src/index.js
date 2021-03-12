@@ -17,13 +17,13 @@ let $lightModeIco; //ikona lightMode
 let $sumItems; //liczba wszystkich zadań na liście
 let $completedTodoBtn; //przycisk do filtrowania zadań zrobionych
 let $activeTodoBtn; //przycisk do filtrowania zadań aktywnych, do zrobienia
-let $activeTodo;//zadanie niezrobione
-let $completedTodo;// zadanie zrobione z klasą completed
+let $activeTodo; //zadanie niezrobione
+let $completedTodo; // zadanie zrobione z klasą completed
 let $allTodoBtn; //przycisk pokazujący wszystkie zadania z listy
 let $clearCompletedBtn;
 
 let $popup; // pobrany popup
-let $popupInfo; // alert w popupie na pusty tekst
+//let $popupInfo; // alert w popupie na pusty tekst
 let $editedTodo; //edytowany Todo
 let $popupInput; //tekst wpisywany w inputa w popupie
 let $addPopupBtn; // przycisk "zatwierdź" w popupie
@@ -48,7 +48,7 @@ const prepareDOMElements = () => {
     $lightModeIco = document.querySelector('.lightModeIco');
 
     $popup = document.querySelector('.popup');
-    $popupInfo = document.querySelector('.popupInfo');
+    // $popupInfo = document.querySelector('.popupInfo');
     $popupInput = document.querySelector('.popupInput');
     $addPopupBtn = document.querySelector('.accept');
     $closeTodoBtn = document.querySelector('.cancel');
@@ -68,7 +68,7 @@ const prepareDOMEvents = () => {
     $todoInput.addEventListener('keyup', enterCheck);
     $ulList.addEventListener('click', checkClick);
     $ulList.addEventListener('click', checkCheckbox);
-    $closeTodoBtn.addEventListener('click', closePopup);
+    document.body.addEventListener('click', closePopup);
     $addPopupBtn.addEventListener('click', changeTodo);
     $darkModeBtn.addEventListener('click', changeMode);
 
@@ -144,7 +144,7 @@ const createToolsArea = () => {
 
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
-    editBtn.innerHTML = '<i class="fa fa-edit"></i>';
+    editBtn.innerHTML = 'edit';
 
     deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
@@ -168,7 +168,7 @@ const checkClick = (e) => {
         deleteTask(e);
     }
 
-     numberOfListItems();
+    numberOfListItems();
 
 
 };
@@ -199,24 +199,27 @@ const changeTodo = () => {
     if ($popupInput.value !== '') {
         $editedTodo.firstChild.nextSibling.textContent = $popupInput.value; //do naszego pobranego li przypisujemy treść z inputa
         $popup.style.display = "none";
-        $popupInfo.innerText = '';
+        // $popupInfo.innerText = '';
     } else {
-        $popupInfo.innerText = "You have to type something!";
+        // $popupInfo.innerText = "You have to type something!";
     };
 };
 
 
 //zamykanie popup, zrób prawdziwy popup
-const closePopup = (e) => {
-    $popup.style.display = "none";
-    $popupInfo.innerText = '';
-
-    // if(!e.target.closest('div').classList.contains('popup')){
-    //     $popup.style.display = "none";
+const closePopup = (event) => {
+    // $popup.style.display = "none";
+    // $popupInfo.innerText = '';
+    console.log(e.target.closest('.popup'));
+    if(event.target.matches(".cancel")  ||  !event.target.closest('div .popup')){
         
-    // }
+        closeModal()
+    }
 };
-
+function closeModal() {
+    $popup.style.display = "none";
+    // popupInfo.innerText = ''
+  }
 //usuwanie zadania
 const deleteTask = (e) => {
     const deleteTodo = e.target.closest('li');
@@ -303,14 +306,14 @@ const filterAll = () => {
         $allTasks[i].style.display = 'flex';
 
     }
-   
+
 }
 
 // funkcja usuwa zadania z klasą completed
 const clearCompletedItems = () => {
     let arr = []
     for (let i = 0; i < $allTasks.length; i++) {
-       
+
         if ($allTasks[i].classList.contains('completed')) {
             let $activeTodo = $allTasks[i];
 
@@ -318,9 +321,9 @@ const clearCompletedItems = () => {
             // let $activeTodo = arr.push($allTasks[i])
             // $activeTodo.remove;
         };
-        
+
     }
-   
+
 }
 
 document.addEventListener('DOMContentLoaded', main);
