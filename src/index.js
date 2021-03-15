@@ -175,12 +175,13 @@ const checkClick = (e) => {
 
 //kliknięcia w przycicki edycji, usuwania, 
 const checkCheckbox = (e) => {
-
-    if (e.target.closest('input').checked === true) {
-        e.target.closest('li').classList.add('completed');
+    const currentLi = e.target.closest('li');
+    const input = currentLi.querySelector('input');
+    if (input.checked) {
+        currentLi.classList.add('completed');
 
     } else {
-        e.target.closest('li').classList.remove('completed');
+        currentLi.classList.remove('completed');
     }
     numberOfListItems();
 };
@@ -210,7 +211,7 @@ const changeTodo = () => {
 const closePopup = (e) => {
     // $popup.style.display = "none";
     // $popupInfo.innerText = '';
-    
+        
     if(e.target.matches(".cancel")  ||  !e.target.closest('.popup')){
         
         hidePopup()
@@ -269,8 +270,7 @@ const filterCompleted = () => {
         $completedTodoBtn.classList.add('active');
         //if activ pokaz
         if ($allTasks[i].classList.contains('completed')) {
-            let $activeTodo = $allTasks[i].style.display = 'flex';
-
+            $allTasks[i].style.display = 'flex';
         };
 
     }
@@ -288,8 +288,7 @@ const filterActive = () => {
         $completedTodoBtn.classList.remove('active');
 
         if (!$allTasks[i].classList.contains('completed')) {
-            let $completedTodo = $allTasks[i].style.display = 'flex';
-
+            $allTasks[i].style.display = 'flex';
         };
     }
 }
