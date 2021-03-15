@@ -60,6 +60,7 @@ const prepareDOMElements = () => {
     $activeTodoBtn = document.querySelector('.activeTodo');
     $allTodoBtn = document.querySelector('.allTodo');
     $clearCompletedBtn = document.querySelector('.clearCompleted');
+    dragula([document.querySelector('#left'), document.querySelector('#right')]);
 
 };
 
@@ -209,13 +210,10 @@ const changeTodo = () => {
 
 //zamykanie popup, zrób prawdziwy popup
 const closePopup = (e) => {
-    // $popup.style.display = "none";
-    // $popupInfo.innerText = '';
+     $popup.style.display = "none";
+    //  $popupInfo.innerText = '';
         
-    if(e.target.matches(".cancel")  ||  !e.target.closest('.popup')){
-        
-        hidePopup()
-    }
+  
 };
 
 //usuwanie zadania
