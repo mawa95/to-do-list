@@ -21,6 +21,7 @@ let $activeTodo; //zadanie niezrobione
 let $completedTodo; // zadanie zrobione z klasą completed
 let $allTodoBtn; //przycisk pokazujący wszystkie zadania z listy
 let $clearCompletedBtn;
+let $toolsPanel;
 
 let $popup; // pobrany popup
 //let $popupInfo; // alert w popupie na pusty tekst
@@ -58,7 +59,7 @@ const prepareDOMElements = () => {
     $completedTodoBtn = document.querySelector('.completedTodo');
     $activeTodoBtn = document.querySelector('.activeTodo');
     $allTodoBtn = document.querySelector('.allTodo');
-    $clearCompletedBtn = document.querySelector('.clearCompleted')
+    $clearCompletedBtn = document.querySelector('.clearCompleted');
 
 };
 
@@ -68,7 +69,7 @@ const prepareDOMEvents = () => {
     $todoInput.addEventListener('keyup', enterCheck);
     $ulList.addEventListener('click', checkClick);
     $ulList.addEventListener('click', checkCheckbox);
-    document.addEventListener('click', closePopup)
+    $popup.addEventListener('click', closePopup);
     $addPopupBtn.addEventListener('click', changeTodo);
     $darkModeBtn.addEventListener('click', changeMode);
 
@@ -133,14 +134,13 @@ const enterCheck = (event) => {
 
 //tworzenie przycisków edycji zadań
 const createToolsArea = () => {
-    let toolsPanel;
     let editBtn;
     let crossImg;
     let deleteBtn;
 
-    toolsPanel = document.createElement('div');
-    toolsPanel.classList.add('tools');
-    $newTask.appendChild(toolsPanel);
+    $toolsPanel = document.createElement('div');
+    $toolsPanel.classList.add('tools');
+    $newTask.appendChild($toolsPanel);
 
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
@@ -152,8 +152,8 @@ const createToolsArea = () => {
     crossImg.classList.add('crossImg');
     deleteBtn.appendChild(crossImg);
 
-    toolsPanel.appendChild(editBtn);
-    toolsPanel.appendChild(deleteBtn);
+    $toolsPanel.appendChild(editBtn);
+    $toolsPanel.appendChild(deleteBtn);
 
 
 
@@ -161,10 +161,10 @@ const createToolsArea = () => {
 };
 
 const checkClick = (e) => {
-
-    if (e.target.closest('button').className === 'edit') {
+    console.log(e.target);
+    if (e.target.closest('.edit')) {
         editTask(e);
-    } else if (e.target.closest('button').className === 'delete') {
+    } else if (e.target.closest('.delete')) {
         deleteTask(e);
     }
 
@@ -217,10 +217,7 @@ const closePopup = (e) => {
         hidePopup()
     }
 };
-function hidePopup() {
-    $popup.style.display = "none";
-    // popupInfo.innerText = ''
-  }
+
 //usuwanie zadania
 const deleteTask = (e) => {
     const deleteTodo = e.target.closest('li');
