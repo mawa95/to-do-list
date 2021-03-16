@@ -29,6 +29,7 @@ let $editedTodo; //edytowany Todo
 let $popupInput; //tekst wpisywany w inputa w popupie
 let $addPopupBtn; // przycisk "zatwierdź" w popupie
 let $closeTodoBtn; //przycisk od zamykania popupa
+let $blocker;
 let $idNumber = 0;
 let $allTasks;
 
@@ -53,6 +54,7 @@ const prepareDOMElements = () => {
     $popupInput = document.querySelector('.popupInput');
     $addPopupBtn = document.querySelector('.accept');
     $closeTodoBtn = document.querySelector('.cancel');
+    $blocker = document.querySelector('.blocker');
     $allTasks = $ulList.getElementsByTagName('li');
 
     $sumItems = document.querySelector('.sumItems');
@@ -70,7 +72,8 @@ const prepareDOMEvents = () => {
     $todoInput.addEventListener('keyup', enterCheck);
     $ulList.addEventListener('click', checkClick);
     $ulList.addEventListener('click', checkCheckbox);
-    $popup.addEventListener('click', closePopup);
+    $closeTodoBtn.addEventListener('click', closePopup);
+    $blocker.addEventListener('click', closePopup);
     $addPopupBtn.addEventListener('click', changeTodo);
     $darkModeBtn.addEventListener('click', changeMode);
 
@@ -120,6 +123,7 @@ const createCheckbox = () => {
     checkLabel.classList.add('checkbox');
 
     span = document.createElement('span');
+    // span.innerHTML = '<i class="fa fa-check"></i>';
 
     checkLabel.appendChild(span);
     checkLabel.appendChild($completeBtn)
@@ -145,7 +149,7 @@ const createToolsArea = () => {
 
     editBtn = document.createElement('button');
     editBtn.classList.add('edit');
-    editBtn.innerHTML = 'edit';
+    editBtn.innerHTML = 'EDIT';
 
     deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
@@ -209,12 +213,14 @@ const changeTodo = () => {
 
 
 //zamykanie popup, zrób prawdziwy popup
-const closePopup = (e) => {
+const closePopup = () => {
      $popup.style.display = "none";
-    //  $popupInfo.innerText = '';
         
   
 };
+function hidePopup() {
+    $popup.style.display = "block";
+  }
 
 //usuwanie zadania
 const deleteTask = (e) => {
@@ -319,5 +325,7 @@ const clearCompletedItems = () => {
     }
 
 }
+
+
 
 document.addEventListener('DOMContentLoaded', main);
