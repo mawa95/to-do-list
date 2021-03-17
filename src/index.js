@@ -1,11 +1,5 @@
 import "./main.scss";
-//dark mode
-//popup/dodać zachowanie poza
-//mobilny wygląd
-//filtrowanie listy
-//drag and drop
-
-
+import dragula from "dragula";
 let $todoInput; //miejsce gdzie użytkownik wpisuje treść zadania
 let $alertInfo; // info o braku zadania, konieczności dodania
 let $ulList; // nasza lista zadań, tagi <ul></ul>
@@ -63,6 +57,7 @@ const prepareDOMElements = () => {
     $allTodoBtn = document.querySelector('.allTodo');
     $clearCompletedBtn = document.querySelector('.clearCompleted');
     dragula([document.querySelector('#left'), document.querySelector('#right')]);
+    
 
 };
 
