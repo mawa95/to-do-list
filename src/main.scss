@@ -10,16 +10,42 @@ $grayish-blue:hsl(233, 11%, 84%);
 $dark-grayish-blue:hsl(235, 24%, 19%);
 $very-dark-grayish-blue:hsl(235, 21%, 11%);
 
+$mobile-width: 260px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
 * {
     font-family: 'Josefin Sans', sans-serif;
     box-sizing: border-box;
     margin: 0;
+    padding: 0
 
     svg {
         fill: white;
     }
 
 
+}
+body{
+  overflow-x:hidden;
 }
 
 input,
@@ -53,6 +79,19 @@ input,
     .header {
 
         background: url('./assets/bg-desktop-dark.jpg') no-repeat;
+        background-size: contain;
+        width: 100vw;
+        @include mobile{
+          background-size:100vw 250px;
+          background-attachment: fixed;
+
+        }
+        @include tablet{
+          background-size:100vw 300px;
+          background-attachment: fixed;
+
+        }
+
     }
 
     .todoList {
@@ -75,25 +114,25 @@ input,
         }
     }
     .checkbox>input {
-       
+
         border: 1px solid #34495E;
-        
-    
+
+
         &:hover {
-           
+
             background-image: linear-gradient(#25273C, #25273C), radial-gradient(circle at top left, rgba(87, 221, 255, 1), rgba(192, 88, 243, 1));
-            
+
         }
-    
+
     }
     .completed {
         text-decoration: line-through;
         color: hsl(234, 11%, 52%);
     }
     .circle {
-       
+
         border: 1px solid #34495E;
-        
+
     }
     .checkbox>input:active {
         border: 2px solid #34495E;
@@ -116,7 +155,7 @@ input,
     .active {
         color: hsl(220, 98%, 61%);
     }
-    
+
 }
 
 button {
@@ -149,19 +188,26 @@ li,
     display: flex;
     justify-content: center;
     align-items: center;
+    @include mobile{
+      font-size: 14px;
+    }
 
 
 }
 
-.todo,
-.header {
-    width: 1440px;
-}
+// .todo,
+// .header {
+//      max-width: 1440px;
+// }
 
 .contentWrapper {
+
     width: 540px;
     height: 100%;
     margin-top: 75px;
+    @include mobile{
+      width: 90%;
+    }
 
     .title {
         display: flex;
@@ -175,6 +221,9 @@ li,
         font-weight: bold;
         font-size: 40px;
         color: white;
+        @include mobile{
+          font-size: 25px
+        }
 
     }
 
@@ -212,7 +261,13 @@ li,
 }
 
 .header {
-    background: url('./assets/bg-desktop-light.jpg')no-repeat
+    background: url('./assets/bg-desktop-light.jpg')no-repeat;
+    background-size: contain;
+    width: 100vw;
+    @include mobile{
+      // height: 200px;
+      // background-size: cover;
+    }
 }
 
 
@@ -222,6 +277,9 @@ li,
     justify-content: space-between;
     flex-direction: column;
     min-height: 440px;
+    @include mobile{
+      min-height: 300px;
+    }
 
     ul {
         width: 100%;
@@ -255,6 +313,9 @@ li>.tools {
     right: 0;
     display: none;
     margin-right: 17px;
+    @include mobile{
+      display: inline-block;
+    }
 
 }
 
@@ -264,11 +325,11 @@ li:hover .tools {
 }
 
 footer {
-    padding-top: 3px;
-    position: absolute;
+
+
     height: 20px;
-    margin-bottom: 0;
-    bottom: 0;
+    margin: 50px 0 0 0;
+
     width: 100%;
 }
 
@@ -331,16 +392,16 @@ footer {
                 font-size: 25px;
                 color: white;
             }
-            
+
         }
         .accept{
             margin-left: 5px;
             i{
                 color: white;
-                font-size: 25px;           
+                font-size: 25px;
             }
         }
-        
+
 
     }
     .blocker {
@@ -467,7 +528,7 @@ footer {
 }
 
 .cancel {
-   
+
 }
 
 .dragInfo {
@@ -475,5 +536,3 @@ footer {
     font-size: 13px;
     margin-top: 50px;
 }
-
-
